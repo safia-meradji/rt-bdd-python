@@ -1,0 +1,434 @@
+Last login: Tue Jan 30 12:30:26 on ttys004
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+MacBook-Air-de-Safia:~ safiameradji$ mysqldump -u votre_nom_utilisateur -p LaPlateforme > laplateforme.sql
+-bash: mysqldump: command not found
+MacBook-Air-de-Safia:~ safiameradji$ mysqldump -u votre_nom_utilisateur -p LaPlateforme > laplateforme.sql
+-bash: mysqldump: command not found
+MacBook-Air-de-Safia:~ safiameradji$ export PATH=${PATH}:/usr/local/mysql/bin/
+MacBook-Air-de-Safia:~ safiameradji$ source ~/.zshrc 
+-bash: /Users/safiameradji/.zshrc: No such file or directory
+MacBook-Air-de-Safia:~ safiameradji$ source ~/.bashrc 
+safiameradji@MacBook-Air-de-Safia ~ %  mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.27 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> CREATE TABLE etudiant (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     nom VARCHAR(255) NOT NULL,
+    ->     prenom VARCHAR(25) NOT NULL,
+    ->     age INT NOT NULL,
+    ->     email VARCHAR(255) NOT NULL
+    -> );
+ERROR 1050 (42S01): Table 'etudiant' already exists
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_laplateforme |
++------------------------+
+| etudiant               |
++------------------------+
+1 row in set (0,00 sec)
+
+mysql> DESCRIBE etudiant;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| id     | int          | NO   | PRI | NULL    | auto_increment |
+| nom    | varchar(255) | NO   |     | NULL    |                |
+| prenom | varchar(25)  | NO   |     | NULL    |                |
+| age    | int          | NO   |     | NULL    |                |
+| email  | varchar(255) | NO   |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+5 rows in set (0,00 sec)
+
+mysql> SHOW COLUMNS FROM etudiant;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| id     | int          | NO   | PRI | NULL    | auto_increment |
+| nom    | varchar(255) | NO   |     | NULL    |                |
+| prenom | varchar(25)  | NO   |     | NULL    |                |
+| age    | int          | NO   |     | NULL    |                |
+| email  | varchar(255) | NO   |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+5 rows in set (0,01 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> INSERT INTO etudiant (nom, prenom, age, email) VALUES
+    -> ('Betty Spaghetti', 'Betty', 23, 'betty.Spaghetti@laplateforme.io'),
+    -> ('Chuck Steak', 'Chuck', 45, 'chuck.steak@laplateforme.io'),
+    -> ('John Doe', 'John', 18, 'john.doe@laplateforme.io'),
+    -> ('Binkie Barnes', 'Binkie', 16, 'binkie.barnes@laplateforme.io'),
+    -> ('Gertrude Dupuis', 'Gertrude', 20, 'gertrude.dupuis@laplateforme.io');
+Query OK, 5 rows affected (0,00 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM etudiant;
++----+-----------------+----------+-----+---------------------------------+
+| id | nom             | prenom   | age | email                           |
++----+-----------------+----------+-----+---------------------------------+
+|  1 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+|  2 | Chuck Steak     | Chuck    |  45 | chuck.steak@laplateforme.io     |
+|  3 | John Doe        | John     |  18 | john.doe@laplateforme.io        |
+|  4 | Binkie Barnes   | Binkie   |  16 | binkie.barnes@laplateforme.io   |
+|  5 | Gertrude Dupuis | Gertrude |  20 | gertrude.dupuis@laplateforme.io |
+|  6 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+|  7 | Chuck Steak     | Chuck    |  45 | chuck.steak@laplateforme.io     |
+|  8 | John Doe        | John     |  18 | john.doe@laplateforme.io        |
+|  9 | Binkie Barnes   | Binkie   |  16 | binkie.barnes@laplateforme.io   |
+| 10 | Gertrude Dupuis | Gertrude |  20 | gertrude.dupuis@laplateforme.io |
+| 11 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+| 12 | Chuck Steak     | Chuck    |  45 | chuck.steak@laplateforme.io     |
+| 13 | John Doe        | John     |  18 | john.doe@laplateforme.io        |
+| 14 | Binkie Barnes   | Binkie   |  16 | binkie.barnes@laplateforme.io   |
+| 15 | Gertrude Dupuis | Gertrude |  20 | gertrude.dupuis@laplateforme.io |
++----+-----------------+----------+-----+---------------------------------+
+15 rows in set (0,00 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> DELETE FROM etudiant WHERE id = 1;
+Query OK, 1 row affected (0,00 sec)
+
+mysql> DELETE FROM etudiant WHERE id 6;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '6' at line 1
+mysql> DELETE FROM etudiant WHERE id BETWEEN 7 AND 15;
+Query OK, 9 rows affected (0,01 sec)
+
+mysql> INSERT INTO etudiant (id, nom, prenom, age, email) VALUES (1, Betty Spaghetti,Betty, betty.spaghetti@laplateforme.io);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Spaghetti,Betty, betty.spaghetti@laplateforme.io)' at line 1
+mysql> INSERT INTO etudiant (id, nom, prenom, age, email) VALUES (1, Spaghetti, Betty, 23, betty.spaghetti@laplateforme.io);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '@laplateforme.io)' at line 1
+mysql> INSERT INTO etudiant (nom, prenom, age, email) VALUES
+    ->  ('Betty Spaghetti', 'Betty', 23, 'betty.Spaghetti@laplateforme.io');
+Query OK, 1 row affected (0,01 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> SELECT * FROM etudiant WHERE age < 18;
++----+---------------+--------+-----+-------------------------------+
+| id | nom           | prenom | age | email                         |
++----+---------------+--------+-----+-------------------------------+
+|  4 | Binkie Barnes | Binkie |  16 | binkie.barnes@laplateforme.io |
++----+---------------+--------+-----+-------------------------------+
+1 row in set (0,00 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> SELECT * FROM etudiant WHERE age < 18;
++----+---------------+--------+-----+-------------------------------+
+| id | nom           | prenom | age | email                         |
++----+---------------+--------+-----+-------------------------------+
+|  4 | Binkie Barnes | Binkie |  16 | binkie.barnes@laplateforme.io |
++----+---------------+--------+-----+-------------------------------+
+1 row in set (0,00 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> SELECT * FROM etudiant ORDER BY age ASC;
++----+-----------------+----------+-----+---------------------------------+
+| id | nom             | prenom   | age | email                           |
++----+-----------------+----------+-----+---------------------------------+
+|  4 | Binkie Barnes   | Binkie   |  16 | binkie.barnes@laplateforme.io   |
+|  3 | John Doe        | John     |  18 | john.doe@laplateforme.io        |
+|  5 | Gertrude Dupuis | Gertrude |  20 | gertrude.dupuis@laplateforme.io |
+|  6 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+| 16 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+|  2 | Chuck Steak     | Chuck    |  45 | chuck.steak@laplateforme.io     |
++----+-----------------+----------+-----+---------------------------------+
+6 rows in set (0,00 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> SELECT * FROM etudiant ORDER BY age DESC;
++----+-----------------+----------+-----+---------------------------------+
+| id | nom             | prenom   | age | email                           |
++----+-----------------+----------+-----+---------------------------------+
+|  2 | Chuck Steak     | Chuck    |  45 | chuck.steak@laplateforme.io     |
+|  6 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+| 16 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+|  5 | Gertrude Dupuis | Gertrude |  20 | gertrude.dupuis@laplateforme.io |
+|  3 | John Doe        | John     |  18 | john.doe@laplateforme.io        |
+|  4 | Binkie Barnes   | Binkie   |  16 | binkie.barnes@laplateforme.io   |
++----+-----------------+----------+-----+---------------------------------+
+6 rows in set (0,00 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> SELECT * FROM etudiant WHERE nom = 'Dupuis' AND prenom = 'Gertrude';
+Empty set (0,01 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> SELECT * FROM etudiant WHERE nom = 'Dupuis' AND prenom = 'Gertrude';
+Empty set (0,00 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> INSERT INTO etudiant (nom, prenom, age, email) VALUES ('Dupuis', 'Martin', 18, 'martin.dupuis@laplateforme.io');
+Query OK, 1 row affected (0,02 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> SELECT * FROM etudiant WHERE nom = 'Dupuis';
++----+--------+--------+-----+-------------------------------+
+| id | nom    | prenom | age | email                         |
++----+--------+--------+-----+-------------------------------+
+| 17 | Dupuis | Martin |  18 | martin.dupuis@laplateforme.io |
++----+--------+--------+-----+-------------------------------+
+1 row in set (0,00 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> SELECT * FROM etudiant WHERE age BETWEEN 18 AND 25;
++----+-----------------+----------+-----+---------------------------------+
+| id | nom             | prenom   | age | email                           |
++----+-----------------+----------+-----+---------------------------------+
+|  3 | John Doe        | John     |  18 | john.doe@laplateforme.io        |
+|  5 | Gertrude Dupuis | Gertrude |  20 | gertrude.dupuis@laplateforme.io |
+|  6 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+| 16 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+| 17 | Dupuis          | Martin   |  18 | martin.dupuis@laplateforme.io   |
++----+-----------------+----------+-----+---------------------------------+
+5 rows in set (0,00 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> SELECT * FROM etudiant WHERE age BETWEEN 18 AND 25 ORDER BY age ASC;
++----+-----------------+----------+-----+---------------------------------+
+| id | nom             | prenom   | age | email                           |
++----+-----------------+----------+-----+---------------------------------+
+|  3 | John Doe        | John     |  18 | john.doe@laplateforme.io        |
+| 17 | Dupuis          | Martin   |  18 | martin.dupuis@laplateforme.io   |
+|  5 | Gertrude Dupuis | Gertrude |  20 | gertrude.dupuis@laplateforme.io |
+|  6 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+| 16 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
++----+-----------------+----------+-----+---------------------------------+
+5 rows in set (0,00 sec)
+
+mysql> 
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> SELECT * FROM etudiant ORDER BY nom ASC, prenom ASC;
++----+-----------------+----------+-----+---------------------------------+
+| id | nom             | prenom   | age | email                           |
++----+-----------------+----------+-----+---------------------------------+
+|  6 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+| 16 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+|  4 | Binkie Barnes   | Binkie   |  16 | binkie.barnes@laplateforme.io   |
+|  2 | Chuck Steak     | Chuck    |  45 | chuck.steak@laplateforme.io     |
+| 17 | Dupuis          | Martin   |  18 | martin.dupuis@laplateforme.io   |
+|  5 | Gertrude Dupuis | Gertrude |  20 | gertrude.dupuis@laplateforme.io |
+|  3 | John Doe        | John     |  18 | john.doe@laplateforme.io        |
++----+-----------------+----------+-----+---------------------------------+
+7 rows in set (0,00 sec)
+
+mysql> 
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> SELECT * FROM etudiant ORDER BY nom ASC, prenom ASC;
++----+-----------------+----------+-----+---------------------------------+
+| id | nom             | prenom   | age | email                           |
++----+-----------------+----------+-----+---------------------------------+
+|  6 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+| 16 | Betty Spaghetti | Betty    |  23 | betty.Spaghetti@laplateforme.io |
+|  4 | Binkie Barnes   | Binkie   |  16 | binkie.barnes@laplateforme.io   |
+|  2 | Chuck Steak     | Chuck    |  45 | chuck.steak@laplateforme.io     |
+| 17 | Dupuis          | Martin   |  18 | martin.dupuis@laplateforme.io   |
+|  5 | Gertrude Dupuis | Gertrude |  20 | gertrude.dupuis@laplateforme.io |
+|  3 | John Doe        | John     |  18 | john.doe@laplateforme.io        |
++----+-----------------+----------+-----+---------------------------------+
+7 rows in set (0,00 sec)
+
+mysql> USE LaPlateforme;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+mysql> SELECT * FROM etudiant WHERE prenom LIKE 'B%';
++----+-----------------+--------+-----+---------------------------------+
+| id | nom             | prenom | age | email                           |
++----+-----------------+--------+-----+---------------------------------+
+|  4 | Binkie Barnes   | Binkie |  16 | binkie.barnes@laplateforme.io   |
+|  6 | Betty Spaghetti | Betty  |  23 | betty.Spaghetti@laplateforme.io |
+| 16 | Betty Spaghetti | Betty  |  23 | betty.Spaghetti@laplateforme.io |
++----+-----------------+--------+-----+---------------------------------+
+3 rows in set (0,00 sec)
+
+mysql> USE LaPlateforme;UPDATE etudiant SET age = 20 WHERE nom = 'Spaghetti' AND prenom = 'Betty';
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+Query OK, 0 rows affected (0,00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> SELECT * FROM etudiant WHERE nom = 'Spaghetti' AND prenom = 'Betty';
+Empty set (0,01 sec)
+
+mysql> Job 18
+    -> 
+    -> John Doe ne fait plus partie des étudiants, supprimez-le de la base de données.
+    -> Créer un fichier nommé “job18.sql” et écrire la requête exécutée.USE LaPlateforme;DELETE FROM etudiant WHERE nom = 'Doe' AND prenom = 'John';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Job 18
+
+John Doe ne fait plus partie des étudiants, supprimez-le de la base de ' at line 1
+Query OK, 0 rows affected (0,00 sec)
+
+mysql> DELETE FROM etudiant WHERE nom = 'Doe' AND prenom = 'John';
+Query OK, 0 rows affected (0,00 sec)
+
+mysql> USE LaPlateforme; SELECT COUNT(*) as nombre_etudiants FROM etudiant;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
++------------------+
+| nombre_etudiants |
++------------------+
+|                7 |
++------------------+
+1 row in set (0,01 sec)
+
+mysql> USE LaPlateforme; SELECT COUNT(*) as nombre_etudiants_mineurs FROM etudiant WHERE age < 18;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
++--------------------------+
+| nombre_etudiants_mineurs |
++--------------------------+
+|                        1 |
++--------------------------+
+1 row in set (0,01 sec)
+
+mysql> USE LaPlateforme; SELECT COUNT(*) as nombre_etudiants_18_25 FROM etudiantWHERE age BETWEEN 18 AND 25;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'BETWEEN 18 AND 25' at line 1
+mysql> USE LaPlateforme; SELECT COUNT(*) as nombre_etudiant_18_25 FROM etudiant WHERE age BETWEEN 18 AND 25;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
++-----------------------+
+| nombre_etudiant_18_25 |
++-----------------------+
+|                     5 |
++-----------------------+
+1 row in set (0,00 sec)
+
+mysql> USE LaPlateforme; SELECT * FROM etudiant ORDER BY age ASC LIMIT 1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
++----+---------------+--------+-----+-------------------------------+
+| id | nom           | prenom | age | email                         |
++----+---------------+--------+-----+-------------------------------+
+|  4 | Binkie Barnes | Binkie |  16 | binkie.barnes@laplateforme.io |
++----+---------------+--------+-----+-------------------------------+
+1 row in set (0,00 sec)
+
+mysql> USE LaPlateforme; SELECT * FROM etudiant ORDER BY age DESC LIMIT 1;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
++----+-------------+--------+-----+-----------------------------+
+| id | nom         | prenom | age | email                       |
++----+-------------+--------+-----+-----------------------------+
+|  2 | Chuck Steak | Chuck  |  45 | chuck.steak@laplateforme.io |
++----+-------------+--------+-----+-----------------------------+
+1 row in set (0,00 sec)
+
+mysql> USE LaPlateforme; SELECT AVG(age) as moyenne_age FROM etudiant;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
++-------------+
+| moyenne_age |
++-------------+
+|     23.2857 |
++-------------+
+1 row in set (0,01 sec)
+
+mysql> 
